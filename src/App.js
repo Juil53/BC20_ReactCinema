@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import HomePage from "./container/HomeTemplate/Homepage";
+import ListMoviePage from "./container/HomeTemplate/ListMovie";
+import BookingPage from "./container/HomeTemplate/Booking";
+import PageNotFound from "./container/PageNotFound";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import NavbarHome from "./container/HomeTemplate/_component/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <NavbarHome />
+      <Switch>
+        {/* Trang HomePage */}
+        <Route exact path="/" component={HomePage} />
+        {/* Trang ListMovie */}
+        <Route path="/list-movie" component={ListMoviePage} />
+        {/* Trang Booking */}
+        <Route path="/booking" component={BookingPage} />
+
+        {/* Trang PageNotFound */}
+        <Route path="" component={PageNotFound} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
