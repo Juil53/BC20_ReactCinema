@@ -1,22 +1,17 @@
 import "./App.css";
-import HomePage from "./container/HomeTemplate/Homepage";
-import ListMoviePage from "./container/HomeTemplate/ListMovie";
-import BookingPage from "./container/HomeTemplate/Booking";
 import PageNotFound from "./container/PageNotFound";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NavbarHome from "./container/HomeTemplate/_component/Navbar";
+import NavBar from "./container/HomeTemplate/_component/Navbar/navbar";
+import { renderRouteHome } from "./routes";
 
 function App() {
   return (
     <BrowserRouter>
-      <NavbarHome />
+      {/* <NavbarHome /> */}
+      <NavBar/>
       <Switch>
-        {/* Trang HomePage */}
-        <Route exact path="/" component={HomePage} />
-        {/* Trang ListMovie */}
-        <Route path="/list-movie" component={ListMoviePage} />
-        {/* Trang Booking */}
-        <Route path="/booking" component={BookingPage} />
+        {renderRouteHome()}
 
         {/* Trang PageNotFound */}
         <Route path="" component={PageNotFound} />
