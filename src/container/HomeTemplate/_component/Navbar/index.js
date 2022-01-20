@@ -1,9 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function NavbarHome() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-info">
         <a className="navbar-brand" href="#">
           Navbar
         </a>
@@ -20,20 +21,33 @@ export default function NavbarHome() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="/">
+            <li className="nav-item">
+              <NavLink
+                exact
+                activeClassName="active"
+                className="nav-link"
+                to="/"
+              >
                 Home Page <span className="sr-only">(current)</span>
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/list-movie">
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/list-movie"
+              >
                 List Movies
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/booking">
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/booking"
+              >
                 Booking
-              </a>
+              </NavLink>
             </li>
           </ul>
 
@@ -44,10 +58,7 @@ export default function NavbarHome() {
               placeholder="Search"
               aria-label="Search"
             />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
+            <button className="btn btn-danger my-2 my-sm-0" type="submit">
               Search
             </button>
           </form>

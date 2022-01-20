@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.active {
+  text-decoration: none;
+  position: relative;
+}
+
+.active:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  background: orangered;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  left:calc(50% - 8px);
+}
+
+a {
+  text-decoration: none; 
+}
+
+a:hover {
+  text-decoration: none; 
+}
+
+hr {
+  background-color: red;
+}
