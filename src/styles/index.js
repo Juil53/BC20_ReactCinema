@@ -1,9 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    backgroundColor: "#1f1f1f",
-    color: "#ff2c1f",
+  page: {
+    backgroundColor: "#001232",
+    width: "100%",
   },
   cardGrid: {
     padding: "20px 0",
@@ -18,10 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flewGrow: 1,
-  },
-  footer: {
-    backgroundColor: "#1f1f1f",
-    padding: "50px 0",
   },
 }));
 

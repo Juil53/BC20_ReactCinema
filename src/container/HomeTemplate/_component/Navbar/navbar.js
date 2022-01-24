@@ -6,13 +6,17 @@ import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { useStyles } from "../../../../styles";
 
 const NavBar = (props) => {
-  const classes = useStyles();
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar style={{position:"absolute",backgroundColor: "transparent",color: "black", paddingTop:"10px"}}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        style={{
+          position: "absolute",
+          backgroundColor: "transparent",
+          color: "black",
+        }}
+      >
         <Toolbar>
           <Typography
             sx={{ flexGrow: 1, mr: 2, display: { xs: "none", md: "flex" } }}
@@ -25,22 +29,27 @@ const NavBar = (props) => {
           </Typography>
           <Stack spacing={4} direction="row">
             <NavLink to="/" exact activeClassName="active">
-              <Button variant="text" style={{color:'white'}}>
+              <Button variant="text" style={{ color: "white" }}>
                 HomePage
               </Button>
             </NavLink>
             <NavLink to="/list-movie" activeClassName="active">
-              <Button variant="text" style={{color:'white'}}>
+              <Button variant="text" style={{ color: "white" }}>
                 List Movies
               </Button>
             </NavLink>
             <NavLink to="/booking" activeClassName="active">
-              <Button variant="text" style={{color:'white'}}>
+              <Button variant="text" style={{ color: "white" }}>
                 Booking
               </Button>
             </NavLink>
             <NavLink to="/signin">
-              <Button variant="contained">Sign In</Button>
+              <Button
+                variant="contained"
+                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+              >
+                Sign In
+              </Button>
             </NavLink>
           </Stack>
         </Toolbar>
