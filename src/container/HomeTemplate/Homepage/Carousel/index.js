@@ -1,35 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
-import { useSelector } from "react-redux";
+import { actCarousel } from "./modules/action";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Carousel() {
-  const arrCarousel = useSelector((state) => state.CarouselReducer);
-  console.log("arrCarousel", arrCarousel);
+  //get State from reducerCarousel
+  const arrCarousel = useSelector((state) => state.CarouselReducer.data);
+  const dispatch = useDispatch();
+  //call CarouselApi after render
+  useEffect(() => {
+    dispatch(actCarousel());
+  }, []);
+
+  const renderCarousel = () => {
+    return arrCarousel?.map((item, index) => {
+      return (
+        <div key={index}>
+          <div
+            style={{
+              backgroundImage: `url(${item.hinhAnh})`,
+              backgroundPosition: "center center",
+              backgroundSize: "cover",
+              position:'relative',
+              height:"100vh",
+              width:"100%",
+            }}
+          >
+          </div>
+        </div>
+      );
+    });
+  };
 
   //setting cho slick carousel
   let settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
-    speed: 500,
+    speed: 700,
     fade: true,
     cssEase: "linear",
+    autoplay: true,
+    arrows:false,
   };
 
-  return (
-    <Slider {...settings}>
-      <div>
-        <img
-          src="./img/anastasia-ermakova-coffeeshop-sunset.jpg"
-          alt="bg1"
-          style={{ width: `100%`,height:`600px`}}
-        />
-      </div>
-      <div>
-        <h3>2</h3>
-      </div>
-      <div>
-        <h3>3</h3>
-      </div>
-    </Slider>
-  );
+  return <Slider {...settings}>{renderCarousel()}</Slider>;
 }

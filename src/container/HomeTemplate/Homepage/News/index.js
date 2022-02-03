@@ -1,9 +1,20 @@
 import React from "react";
 import Slider from "react-slick";
-import { Typography, Container } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+} from "@mui/material";
 import { useStyles } from "../../../../styles";
+import { useSelector } from "react-redux";
 
 export default function NewSlider() {
+  const arrNew = useSelector((state) => state.MoviesReducer.data);
+  // const text = arrNew?.moTa.slice(0,50);
+
   const classes = useStyles();
   const settings = {
     dots: true,
@@ -14,32 +25,57 @@ export default function NewSlider() {
     slidesToScroll: 1,
   };
   return (
-    <div>
+    <div style={{ margin: "50px 0" }}>
       <div className={classes.container}>
         <Container maxWidth="xl">
-          <Typography variant="h5" gutterBottom align="center">
+          <Typography variant="h4" color="white" gutterBottom>
             News
           </Typography>
         </Container>
       </div>
-      <h2> Multiple items </h2>
-      <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-      </Slider>
+
+      <div>
+        <Container maxWidth="xl">
+          <Slider {...settings}>
+            {arrNew?.map((item, index) => {
+              return (
+                <Grid key={index} item p={2}>
+                  <Card sx={{ width: "100%", height: "400px" }}>
+                    <CardMedia
+                      component="img"
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        objectFit: "cover",
+                        objectPosition: "center top",
+                      }}
+                      image={item.hinhAnh}
+                      alt={item.hinhAnh}
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        variant="title"
+                        color="error"
+                        component="p"
+                      >
+                        {item.tenPhim}
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="subtittle1"
+                        component="p"
+                      >
+                        {item.moTa.slice(0, 50)}...
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Slider>
+        </Container>
+      </div>
     </div>
   );
 }
