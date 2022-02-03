@@ -19,16 +19,13 @@ export default function Carousel() {
           <div
             style={{
               backgroundImage: `url(${item.hinhAnh})`,
-              backgroundPosition: "center",
-              backgroundSize: "100%",
-              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              backgroundSize: "cover",
+              position:'relative',
+              height:"100vh",
+              width:"100%",
             }}
           >
-            <img
-              src={item.hinhAnh}
-              alt="bg1"
-              style={{ width: `100%`, height: `500px`, opacity: 0 }}
-            />
           </div>
         </div>
       );
@@ -43,6 +40,7 @@ export default function Carousel() {
     fade: true,
     cssEase: "linear",
     autoplay: true,
+    arrows:false,
   };
 
   return <Slider {...settings}>{renderCarousel()}</Slider>;

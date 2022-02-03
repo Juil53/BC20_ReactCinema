@@ -5,13 +5,13 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Container,
   Button,
 } from "@mui/material";
 import { useStyles } from "../../../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { actMovies } from "./Modules/action";
+import { NavLink } from "react-router-dom";
 
 export default function Movies() {
   const [hidden, setHidden] = useState(true);
@@ -25,36 +25,40 @@ export default function Movies() {
   }, []);
 
   //Filter short ArrMovies to Show
+  const openingMovie = arrMovies?.filter((movie) => movie.dangChieu === true);
   const shortArrMovie = () => {
     if (hidden) {
-      return arrMovies?.slice(0, maxItemShow);
+      return openingMovie?.slice(0, maxItemShow);
     }
-    return arrMovies;
+    return openingMovie;
   };
 
   const classes = useStyles();
   return (
-    <div className={classes.container}>
+    <div>
       <Container maxWidth="xl" className={classes.cardGrid}>
         <Grid container spacing={4}>
           {shortArrMovie()?.map((item, index) => (
             <Grid item key={index} xs={12} sm={6} md={3}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={item.hinhAnh}
-                  title="Image Title"
-                />
+              <Card
+                sx={{ backgroundColor: "#001232" }}
+                className={classes.card}
+              >
+                <div className={classes.cardContainer}>
+                  <img src={item.hinhAnh} className={classes.cardMedia} />
+                </div>
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h6">
+                  <Typography gutterBottom variant="subtitle1">
                     {item.tenPhim}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
+                <CardActions className={classes.cardContent}>
+                  <NavLink to={`/detail/${item.maPhim}`}>
+                  <Button variant="outlined" size="small" color="primary" style={{marginRight:'10px'}}>
                     Detail Movie
                   </Button>
-                  <Button size="small" color="primary">
+                  </NavLink>
+                  <Button variant="outlined" size="small" color="primary">
                     Book Now
                   </Button>
                 </CardActions>
@@ -63,16 +67,19 @@ export default function Movies() {
           ))}
         </Grid>
         ;
-        <Button
-          variant="text"
-          color="warning"
-          sx={{ mt: 2 }}
-          onClick={() => {
-            setHidden(!hidden)
-          }}
-        >
-          {hidden? "Show More" : "Show Less"}
-        </Button>
+        <Container style={{ textAlign: "right" }}>
+          <Button
+            size="small"
+            variant="text"
+            color="warning"
+            sx={{ mt: 2 }}
+            onClick={() => {
+              setHidden(!hidden);
+            }}
+          >
+            {hidden ? "Show More..." : "Show Less"}
+          </Button>
+        </Container>
       </Container>
     </div>
   );

@@ -6,40 +6,51 @@ import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useStyles } from "../../../../styles";
 
 const NavBar = (props) => {
+  const classes = useStyles();
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <header>
       <AppBar
         style={{
-          position: "absolute",
+          elevation: 0,
+          position: "fixed",
           backgroundColor: "transparent",
           color: "black",
         }}
       >
         <Toolbar>
           <Typography
-            sx={{ flexGrow: 1, mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
           >
-            <img
-              style={{ width: "50px", height: "50px" }}
-              src="./logo192.png"
-              alt="logo"
-            />
+            <img src="./footerlogo.jpg" alt="logo" />
           </Typography>
-          <Stack spacing={4} direction="row">
+          <Stack spacing={2} direction="row">
             <NavLink to="/" exact activeClassName="active">
-              <Button variant="text" style={{ color: "white" }}>
+              <Button
+                sx={{ color: "white" }}
+                className={classes.navbtn}
+                variant="text"
+              >
                 HomePage
               </Button>
             </NavLink>
             <NavLink to="/list-movie" activeClassName="active">
-              <Button variant="text" style={{ color: "white" }}>
+              <Button
+                sx={{ color: "white" }}
+                className={classes.navbtn}
+                variant="text"
+              >
                 List Movies
               </Button>
             </NavLink>
             <NavLink to="/booking" activeClassName="active">
-              <Button variant="text" style={{ color: "white" }}>
+              <Button
+                sx={{ color: "white" }}
+                className={classes.navbtn}
+                variant="text"
+              >
                 Booking
               </Button>
             </NavLink>
@@ -54,7 +65,7 @@ const NavBar = (props) => {
           </Stack>
         </Toolbar>
       </AppBar>
-    </Box>
+    </header>
   );
 };
 

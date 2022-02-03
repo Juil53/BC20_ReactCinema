@@ -7,7 +7,7 @@ export const actCarousel = () => {
   return (dispatch) => {
     dispatch(actCarouselRequest());
     api
-      .get("https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachBanner")
+      .get("QuanLyPhim/LayDanhSachBanner")
       .then((result) => {
         dispatch(actCarouselSuccess(result.data.content));
       })
