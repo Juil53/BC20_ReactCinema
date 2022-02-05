@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,7 +7,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Divider } from "@mui/material";
+import { Divider, Grid, Container } from "@mui/material";
+import moment from "moment";
+import { NavLink } from "react-router-dom";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,16 +27,49 @@ function TabPanel(props) {
   );
 }
 
+function TabPanelVertical(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
 };
 
+TabPanelVertical.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+function a11yPropsVertical(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
 
@@ -58,7 +94,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Summery(props) {
-  const {movie} = props;
+  const { movie } = props;
+  let arrCumrap = movie?.heThongRapChieu;
+  console.log(arrCumrap);
   const settings = {
     arrows: false,
     infinite: true,
@@ -68,7 +106,13 @@ export default function Summery(props) {
     autoplay: true,
   };
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [valueTab, setValueTab] = useState(0);
+
+
+  const handleTabs = (event, newVal) => {
+    setValueTab(newVal);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,22 +126,84 @@ export default function Summery(props) {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Summery" {...a11yProps(0)} />
-          <Tab label="Reviews" {...a11yProps(1)} />
+          <Tab label="Schedule" {...a11yProps(0)} />
+          <Tab label="Summery" {...a11yProps(1)} />
+          <Tab label="Reviews" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel className={classes.tabPanelColor} value={value} index={0}>
+
+      {/* Schedule */}
+      <TabPanel value={value} index={0}>
+        <Box sx={{ flexGrow: 1, display: 'flex' }} >
+          <Tabs
+            orientation="vertical"
+            value={valueTab}
+            onChange={handleTabs}
+            aria-label="Vertical tabs example"
+          >
+            {movie?.heThongRapChieu.map((hethongrap, index) => {
+              return (
+                <Tab
+                  label={hethongrap.tenHeThongRap}
+                  {...a11yPropsVertical(index)}
+                  key={index}
+                  icon={<img width={50} height={50} src={hethongrap.logo} />}
+                />
+              );
+            })}
+          </Tabs>
+          {arrCumrap?.map((cumrap, index) => {
+            return (
+              <TabPanel key={index} value={valueTab} index={index}>
+                {cumrap?.cumRapChieu.map((rap, index) => {
+                  return <div key={index}>
+                    <Box sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}>
+                      <img
+                        style={{ width: '60px', height: '60px' }}
+                        src={rap.hinhAnh} />
+                      <div style={{ marginLeft: '10px' }}>
+                        <p style={{ fontSize: '20px', fontWeight: 'bold' }}>{rap.tenCumRap}</p>
+                        <p style={{ color: 'grey', fontSize: '14px' }}>{rap.diaChi}</p>
+                      </div>
+                    </Box>
+                    <Container>
+                      <Grid container spacing={2}>
+                        {rap.lichChieuPhim?.slice(0, 12).map((lichchieu, index) => {
+                          return (
+                            <Grid key={index} item xs={4}>
+                              <NavLink to="/booking" style={{color:'white',fontWeight:'bold'}}>
+                                {moment(lichchieu.ngayChieuGioChieu).format('hh:mm A')}
+                              </NavLink>
+                            </Grid>
+                          )
+                        })}
+                      </Grid>
+                    </Container>
+                  </div>
+                })}
+              </TabPanel>
+            )
+          })}
+        </Box>
+      </TabPanel>
+
+
+      {/* Sumery */}
+      <TabPanel className={classes.tabPanelColor} value={value} index={1}>
         <Typography variant="h4" gutterBottom>
-          SYNOPSIS
+          DESCRIPTION
         </Typography>
         <Typography paragraph gutterBottom>
           {movie && movie.moTa}
         </Typography>
+
         <Typography variant="h4" style={{ marginTop: "20px" }} gutterBottom>
           CAST
         </Typography>
         <Divider />
-
         <div>
           <Slider {...settings}>
             <div>
@@ -118,7 +224,8 @@ export default function Summery(props) {
           </Slider>
         </div>
       </TabPanel>
-      <TabPanel className={classes.tabPanelColor} value={value} index={1}>
+      {/* Review */}
+      <TabPanel className={classes.tabPanelColor} value={value} index={2}>
         Bonjour
       </TabPanel>
     </div>

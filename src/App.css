@@ -60,3 +60,13 @@ a {
 a:hover {
   text-decoration: none; 
 }
+.navbar {
+  position: fixed;
+  background-color: transparent;
+  color: black;
+  transition: 0.8s all ease
+}
+
+.colorChange {
+  background-color:#032055;
+}

@@ -7,7 +7,7 @@ export const actDetailMovies = (id) => {
   return (dispatch) => {
     dispatch(actDetailMovieRequest());
     api
-      .get(`QuanLyPhim/LayThongTinPhim?MaPhim=${id}`)
+      .get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
       .then((result) => {
         dispatch(actDetailMovieSuccess(result.data.content));
       })
@@ -36,3 +36,4 @@ const actDetailMovieFailed = (err) => {
     payload: err,
   };
 };
+

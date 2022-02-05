@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     border: "1px solid #001232",
-    
+
     "&:hover": {
       border: "1px solid #ff2c1f",
       borderRadius: "10px",
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#032055",
     color: "white",
     flewGrow: 1,
-    
+
   },
   footer: {
     backgroundColor: "#032055",

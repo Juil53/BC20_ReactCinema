@@ -9,11 +9,11 @@ export default function Footer() {
   const classes = useStyles();
   return (
     <>
-      <footer>
+      <footer style={{paddingTop:'20px'}}>
         <Grid container spacing={4} className={classes.footer}>
           <Grid item xs={12} sm={6} md={4}>
             <Typography variant="h3" color="primary">
-              <img src="./footerlogo.jpg" alt="logo" />
+              <img src="/img/footerlogo.jpg" alt="logo" />
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
