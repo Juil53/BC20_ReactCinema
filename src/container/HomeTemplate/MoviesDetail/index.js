@@ -16,28 +16,25 @@ import { actDetailMovies } from "./modules/action";
 import { Link } from "react-router-dom";
 
 export default function DetailMovie(props) {
-  const movie = useSelector((state) => state.DetailMoviesReducer.data);
-  const [value,setValue] = useState()
+  const movie = useSelector((state) => state.DetailMoviesReducer.data);  
   const dispatch = useDispatch();
   useEffect(() => {
     //Lấy param Id từ URL
     const { id } = props.match.params;
     dispatch(actDetailMovies(id));
-    
   }, []);
-  
 
   const filmDangChieu = () => {
     if (movie && movie.dangChieu) {
-      return "Film Đang Chiếu";
+      return "Opening day";
     }
-    return " Film Sắp Chiếu";
+    return "Coming soon";
   };
 
   return (
     <div
       style={{
-        backgroundImage: "url(https://picsum.photos/1920)",
+        backgroundImage: "url(/img/bgmoviedetail.jpg)",
         backgroundRepeat: "no-repeat",
         minHeight: "100vh",
       }}
@@ -52,7 +49,7 @@ export default function DetailMovie(props) {
         <Container maxWidth="lg" style={{ position: "relative" }}>
           <Grid container spacing={2}>
             <Grid item>
-              <Card sx={{ minWidth: 275, marginRight: "20px" }}>
+              <Card sx={{ marginRight: "20px" }}>
                 <img src={movie && movie.hinhAnh} />
               </Card>
             </Grid>
@@ -63,27 +60,28 @@ export default function DetailMovie(props) {
                   <Typography variant="h5" gutterBottom>
                     {movie && movie.tenPhim}
                   </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    style={{
+                      marginBottom:'10px',
+                      color: "gray",
+                    }}
+                  >
+                    Category: Action,Romance,...
+                  </Typography>
                   <Typography variant="subtitle1" gutterBottom>
                     {filmDangChieu()}
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      marginBottom: "10px",
-                      color: "white",
-                      opacity: "0.5",
-                    }}
-                  >
-                    Horror
-                  </Button>
 
                   <Grid container justifyContent="space-between">
                     <Grid item>
-                      <Typography variant="p">{new Date(movie?.ngayKhoiChieu).toLocaleDateString()}</Typography>
+                      <Typography variant="p">
+                        {new Date(movie?.ngayKhoiChieu).toLocaleDateString()}
+                      </Typography>
                     </Grid>
-                    <Grid item>
+                    {/* <Grid item>
                       <Typography variant="p">{new Date(movie?.ngayKhoiChieu).toLocaleTimeString()}</Typography>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
 
@@ -110,7 +108,7 @@ export default function DetailMovie(props) {
                     }}
                   >
                     <Typography component="legend">Rating</Typography>
-                    <Rating name="read-only" value={4} readOnly />
+                    <Rating name="half-rating-read"precision={0.5} value={movie?.danhGia/2} readOnly />
                   </Box>
                 </Grid>
               </Grid>

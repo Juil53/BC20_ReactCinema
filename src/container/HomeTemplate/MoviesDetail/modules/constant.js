@@ -1,3 +1,4 @@
 export const DETAILMOVIES_REQUEST ="@movieReducer/DETAILMOVIES_REQUEST";
 export const DETAILMOVIES_SUCCESS ="@movieReducer/DETAILMOVIES_SUCCESS";
 export const DETAILMOVIES_FAILED ="@movieReducer/DETAILMOVIES_FAILED";
+

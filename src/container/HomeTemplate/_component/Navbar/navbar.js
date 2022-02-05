@@ -1,16 +1,29 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
+import { useState, useEffect } from "react"
+
+
 
 const NavBar = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const [colorChange, setColorchange] = useState(false);
+  const changeNavbarColor = () =>{
+     if(window.scrollY >= 80){
+       setColorchange(true);
+     }
+     else{
+       setColorchange(false);
+     }
+  };
+  window.addEventListener('scroll', changeNavbarColor);
   return (
+    
     <header>
       <AppBar
         style={{
@@ -20,11 +33,11 @@ const NavBar = (props) => {
           color: "black",
         }}
       >
-        <Toolbar>
+        <Toolbar className={colorChange ? "navbar colorChange" : "navbar"}>
           <Typography
             sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
           >
-            <img src="./footerlogo.jpg" alt="logo" />
+            <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
           <Stack spacing={2} direction="row">
             <NavLink to="/" exact activeClassName="active">
