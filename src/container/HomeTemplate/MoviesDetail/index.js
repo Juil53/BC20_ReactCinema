@@ -14,9 +14,14 @@ import "@tsamantanis/react-glassmorphism/dist/index.css";
 import Summery from "./Summery";
 import { actDetailMovies } from "./modules/action";
 import { Link } from "react-router-dom";
+import { useStyles } from "../../../styles/index"
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function DetailMovie(props) {
-  const movie = useSelector((state) => state.DetailMoviesReducer.data);  
+  const classes = useStyles();
+  const movie = useSelector((state) => state.DetailMoviesReducer.data);
   const dispatch = useDispatch();
   useEffect(() => {
     //Lấy param Id từ URL
@@ -63,7 +68,7 @@ export default function DetailMovie(props) {
                   <Typography
                     variant="subtitle2"
                     style={{
-                      marginBottom:'10px',
+                      marginBottom: '10px',
                       color: "gray",
                     }}
                   >
@@ -79,22 +84,32 @@ export default function DetailMovie(props) {
                         {new Date(movie?.ngayKhoiChieu).toLocaleDateString()}
                       </Typography>
                     </Grid>
-                    {/* <Grid item>
-                      <Typography variant="p">{new Date(movie?.ngayKhoiChieu).toLocaleTimeString()}</Typography>
-                    </Grid> */}
                   </Grid>
+
                 </Grid>
 
                 {/* Icon */}
                 <Grid>
-                  <Grid
-                    container
-                    justifyContent="flex-end"
-                    alignItems="flex-end"
-                  >
-                    <Grid>
-                      <Typography variant="p">Icon</Typography>
-                    </Grid>
+                  <Grid item xs={12} sm={6} md={4}>
+                    <a href="https://www.facebook.com" target="_blank">
+                      <FacebookIcon
+                        className={classes.icon}
+                        sx={{ color: "white", marginBottom: "20px" }}
+                      />
+                    </a>
+                  </Grid>
+                  
+                  <Grid item xs={12} sm={6} md={4}>
+                    <TwitterIcon
+                      className={classes.icon}
+                      sx={{ color: "white", marginBottom: "20px" }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4}>
+                    <InstagramIcon
+                      className={classes.icon}
+                      sx={{ color: "white", marginBottom: "20px" }}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -108,7 +123,7 @@ export default function DetailMovie(props) {
                     }}
                   >
                     <Typography component="legend">Rating</Typography>
-                    <Rating name="half-rating-read"precision={0.5} value={movie?.danhGia/2} readOnly />
+                    <Rating name="half-rating-read" precision={0.5} value={movie?.danhGia / 2} readOnly />
                   </Box>
                 </Grid>
               </Grid>
@@ -126,7 +141,7 @@ export default function DetailMovie(props) {
         </Container>
 
         <Container>
-          <Summery movie={movie}/>
+          <Summery movie={movie} />
         </Container>
       </CustomCard>
     </div>

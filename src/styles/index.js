@@ -15,17 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     border: "1px solid #001232",
-
+    transition: ".5s",
     "&:hover": {
       border: "1px solid #ff2c1f",
       borderRadius: "10px",
       boxShadow: "1px 8px 20px grey",
-      transform: "translateY(-10px)",
+      transform: "translateY(-5px)",
     },
   },
   cardContainer: {
     height: "300px",
     overflow: "hidden",
+    transition: ".5s",
   },
 
   cardMedia: {
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     cursor: "pointer",
+    transition: ".25s !important",
     "&:hover": {
       color: "#ff2c1f",
     },

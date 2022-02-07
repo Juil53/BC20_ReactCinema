@@ -94,9 +94,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Summery(props) {
+  const classes = useStyles();
+  const [value, setValue] = useState(0);
+  const [valueTab, setValueTab] = useState(0);
   const { movie } = props;
   let arrCumrap = movie?.heThongRapChieu;
-  console.log(arrCumrap);
+
   const settings = {
     arrows: false,
     infinite: true,
@@ -105,10 +108,6 @@ export default function Summery(props) {
     slidesToScroll: 1,
     autoplay: true,
   };
-  const classes = useStyles();
-  const [value, setValue] = useState(0);
-  const [valueTab, setValueTab] = useState(0);
-
 
   const handleTabs = (event, newVal) => {
     setValueTab(newVal);
@@ -135,58 +134,66 @@ export default function Summery(props) {
       {/* Schedule */}
       <TabPanel value={value} index={0}>
         <Box sx={{ flexGrow: 1, display: 'flex' }} >
-          <Tabs
-            orientation="vertical"
-            value={valueTab}
-            onChange={handleTabs}
-            aria-label="Vertical tabs example"
-          >
-            {movie?.heThongRapChieu.map((hethongrap, index) => {
-              return (
-                <Tab
-                  label={hethongrap.tenHeThongRap}
-                  {...a11yPropsVertical(index)}
-                  key={index}
-                  icon={<img width={50} height={50} src={hethongrap.logo} />}
-                />
-              );
-            })}
-          </Tabs>
-          {arrCumrap?.map((cumrap, index) => {
-            return (
-              <TabPanel key={index} value={valueTab} index={index}>
-                {cumrap?.cumRapChieu.map((rap, index) => {
-                  return <div key={index}>
-                    <Box sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}>
-                      <img
-                        style={{ width: '60px', height: '60px' }}
-                        src={rap.hinhAnh} />
-                      <div style={{ marginLeft: '10px' }}>
-                        <p style={{ fontSize: '20px', fontWeight: 'bold' }}>{rap.tenCumRap}</p>
-                        <p style={{ color: 'grey', fontSize: '14px' }}>{rap.diaChi}</p>
-                      </div>
-                    </Box>
-                    <Container>
-                      <Grid container spacing={2}>
-                        {rap.lichChieuPhim?.slice(0, 12).map((lichchieu, index) => {
-                          return (
-                            <Grid key={index} item xs={4}>
-                              <NavLink to="/booking" style={{color:'white',fontWeight:'bold'}}>
-                                {moment(lichchieu.ngayChieuGioChieu).format('hh:mm A')}
-                              </NavLink>
-                            </Grid>
-                          )
-                        })}
-                      </Grid>
-                    </Container>
-                  </div>
+          <Grid container>
+            <Grid item xs={12} sm={4} md={3}>
+              <Tabs
+                orientation="vertical"
+                value={valueTab}
+                onChange={handleTabs}
+                aria-label="Vertical tabs example"
+              >
+                {movie?.heThongRapChieu.map((hethongrap, index) => {
+                  return (
+                    <Tab
+                      label={hethongrap.tenHeThongRap}
+                      {...a11yPropsVertical(index)}
+                      key={index}
+                      icon={<img width={50} height={50} src={hethongrap.logo} />}
+                    />
+                  );
                 })}
-              </TabPanel>
-            )
-          })}
+              </Tabs>
+            </Grid>
+
+            <Grid item xs={12} sm={8} md={9}>
+              {arrCumrap?.map((cumrap, index) => {
+                return (
+                  <TabPanel key={index} value={valueTab} index={index}>
+                    {cumrap?.cumRapChieu.map((rap, index) => {
+                      return <div key={index}>
+                        <Box sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                        }}>
+                          <img
+                            style={{ width: '60px', height: '60px' }}
+                            src={rap.hinhAnh} />
+                          <div style={{ marginLeft: '10px' }}>
+                            <p style={{ fontSize: '20px', fontWeight: 'bold' }}>{rap.tenCumRap}</p>
+                            <p style={{ color: 'grey', fontSize: '14px' }}>{rap.diaChi}</p>
+                          </div>
+                        </Box>
+                        <Container>
+                          <Grid container spacing={2}>
+                            {rap.lichChieuPhim?.slice(0, 12).map((lichchieu, index) => {
+                              return (
+                                <Grid key={index} item xs={4}>
+                                  <NavLink to="/booking" style={{ color: 'white', fontWeight: 'bold' }}>
+                                    {moment(lichchieu.ngayChieuGioChieu).format('hh:mm A')}
+                                  </NavLink>
+                                </Grid>
+                              )
+                            })}
+                          </Grid>
+                        </Container>
+                      </div>
+                    })}
+                  </TabPanel>
+                )
+              })}
+            </Grid>
+          </Grid>
+
         </Box>
       </TabPanel>
 
@@ -218,12 +225,10 @@ export default function Summery(props) {
             <div>
               <img className={classes.circle} src="https://picsum.photos/300" />
             </div>
-            <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
-            </div>
           </Slider>
         </div>
       </TabPanel>
+
       {/* Review */}
       <TabPanel className={classes.tabPanelColor} value={value} index={2}>
         Bonjour
