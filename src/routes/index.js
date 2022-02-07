@@ -1,8 +1,12 @@
 import HomePage from "../container/HomeTemplate/Homepage";
 import ListMoviePage from "../container/HomeTemplate/ListMovie";
 import BookingPage from "../container/HomeTemplate/Booking";
-import { Route } from "react-router-dom";
 import DetailMovie from "../container/HomeTemplate/MoviesDetail";
+import HomeTemplate from "../container/HomeTemplate";
+import DashboardPage from "../container/AdminTemplate/DashboardPage";
+import AddUserPage from "../container/AdminTemplate/AddUserPage";
+import AdminTemplate from "../container/AdminTemplate";
+
 
 const routesHome = [
   //Home
@@ -31,12 +35,23 @@ const routesHome = [
   },
 ];
 
-// const routesAdmin = [];
+const routesAdmin = [
+  {
+    exact: false,
+    path: "/dashboard",
+    component: DashboardPage,
+  },
+  {
+    exact: false,
+    path: "/add-user",
+    component: AddUserPage,
+  },
+];
 
 const renderRouteHome = () => {
-  return routesHome.map((route,index) => {
+  return routesHome.map((route, index) => {
     return (
-      <Route
+      <HomeTemplate
         key={index}
         exact={route.exact}
         path={route.path}
@@ -46,4 +61,17 @@ const renderRouteHome = () => {
   });
 };
 
-export {renderRouteHome};
+const renderRouteAdmin = () => {
+  return routesAdmin.map((route, index) => {
+    return (
+      <AdminTemplate
+        key={index}
+        exact={route.exact}
+        path={route.path}
+        component={route.component}
+      />
+    );
+  });
+};
+
+export { renderRouteHome, renderRouteAdmin };

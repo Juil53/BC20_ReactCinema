@@ -12,7 +12,6 @@ import { useStyles } from "../../../styles";
 import Movies from "./Movies";
 import ComingMovies from "./ComingMovies";
 
-// const cardsSoon = [1, 2, 3, 4];
 
 export default function HomePage() {
   const classes = useStyles();

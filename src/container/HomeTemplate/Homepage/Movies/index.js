@@ -66,7 +66,7 @@ export default function Movies() {
             </Grid>
           ))}
         </Grid>
-        ;
+        
         <Container style={{ textAlign: "right" }}>
           <Button
             size="small"

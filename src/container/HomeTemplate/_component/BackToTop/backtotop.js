@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
@@ -51,7 +50,7 @@ export default function BackToTop(props) {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Toolbar id="back-to-top-anchor" />
+            <span id="back-to-top-anchor" />
             <ScrollTop {...props}>
                 <Fab style={{color:'white',backgroundColor:"red"}} size="small" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
