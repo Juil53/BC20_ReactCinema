@@ -1,6 +1,5 @@
 import { useStyles } from "../../../../styles";
 import * as React from 'react';
-import { Toolbar } from "@mui/material";
 import BackToTop from "../BackToTop/backtotop";
 
 export default function Layout({ children }) {

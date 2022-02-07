@@ -52,12 +52,12 @@ export default function NewSlider() {
                       image={item.hinhAnh}
                       alt={item.hinhAnh}
                     />
-                    <CardContent>
+                    <CardContent className={classes.cardContent}>
                       <Typography
                         gutterBottom
                         variant="title"
-                        color="error"
-                        component="p"
+                        color="white"
+                        component="h6"
                       >
                         {item.tenPhim}
                       </Typography>
