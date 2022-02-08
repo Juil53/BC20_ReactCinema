@@ -67,7 +67,6 @@ export default function AuthPage(props) {
         <a href="#">
           <p className="small">Forgot your password?</p>
         </a>
-        
       </form>
       
     </div>
