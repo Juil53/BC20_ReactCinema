@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
@@ -30,7 +31,11 @@ export default function AuthPage(props) {
   const noti = () => {
     return error && <div className="alert alert-danger">{error.response.data.content}</div>
   }
+import React from "react";
+import "./style.css";
+import "./animate.css";
 
+export default function AuthPage() {
   return (
     <div className="container">
       <div className="top">
@@ -61,6 +66,22 @@ export default function AuthPage(props) {
           name="matKhau"
           onChange={handleOnChange}
         />
+          <span id="logo">
+            BOLETO CINEMA
+          </span>
+        </h1>
+      </div>
+      <div className="login-box animated fadeInUp">
+        <div className="box-header">
+          <h2>Log In</h2>
+        </div>
+        <label htmlFor="username">Username</label>
+        <br />
+        <input type="text" id="username" />
+        <br />
+        <label htmlFor="password">Password</label>
+        <br />
+        <input type="password" id="password" />
         <br />
         <button type="submit">Sign In</button>
         <br />
@@ -68,7 +89,7 @@ export default function AuthPage(props) {
           <p className="small">Forgot your password?</p>
         </a>
       </form>
-      
+      </div>
     </div>
   );
 }
