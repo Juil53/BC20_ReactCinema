@@ -2,6 +2,7 @@ import HomePage from "../container/HomeTemplate/Homepage";
 import ListMoviePage from "../container/HomeTemplate/ListMovie";
 import BookingPage from "../container/HomeTemplate/Booking";
 import { Route } from "react-router-dom";
+import DetailMovie from "../container/HomeTemplate/MoviesDetail";
 
 const routesHome = [
   //Home
@@ -21,6 +22,12 @@ const routesHome = [
     exact: false,
     path: "/booking",
     component: BookingPage,
+  },
+  //Detail Movie
+  {
+    exact: false,
+    path: "/detail/:id",
+    component: DetailMovie,
   },
 ];
 

@@ -45,12 +45,12 @@
 .active:before {
   content: "";
   position: absolute;
-  top: -10px;
-  background: orangered;
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  left:calc(50% - 8px);
+  top: -5px;
+  background: #ff4500;
+  width: 30px;
+  height: 5px;
+  border-radius: 10px;
+  left:calc(50% - 15px);
 }
 
 a {
@@ -59,8 +59,4 @@ a {
 
 a:hover {
   text-decoration: none; 
-}
-
-hr {
-  background-color: red;
 }
