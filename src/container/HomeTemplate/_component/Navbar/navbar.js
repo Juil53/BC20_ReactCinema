@@ -67,12 +67,12 @@ const NavBar = (props) => {
                 Booking
               </Button>
             </NavLink>
-            <NavLink to="/signin">
+            <NavLink to="/auth">
               <Button
                 variant="contained"
                 style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
               >
-                Sign In
+                Log in
               </Button>
             </NavLink>
           </Stack>

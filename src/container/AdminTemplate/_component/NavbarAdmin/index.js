@@ -14,8 +14,8 @@ const NavBarAdmin = (props) => {
       <AppBar
         style={{
           elevation: 0,
-          position: "static",
-          backgroundColor: "transparent",
+          position: "fixed",
+          backgroundColor: "#032055",
         }}
       >
         <Toolbar>
@@ -41,23 +41,6 @@ const NavBarAdmin = (props) => {
                 variant="text"
               >
                 Add User
-              </Button>
-            </NavLink>
-            <NavLink to="/auth" activeClassName="active">
-              <Button
-                sx={{ color: "white" }}
-                className={classes.navbtn}
-                variant="text"
-              >
-                Auth
-              </Button>
-            </NavLink>
-            <NavLink to="/signin">
-              <Button
-                variant="contained"
-                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-              >
-                Sign In
               </Button>
             </NavLink>
           </Stack>

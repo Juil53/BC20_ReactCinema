@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import { Divider, Grid, Container } from "@mui/material";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 
 function TabPanel(props) {
@@ -179,7 +180,9 @@ export default function Summery(props) {
                               return (
                                 <Grid key={index} item xs={4}>
                                   <NavLink to="/booking" style={{ color: 'white', fontWeight: 'bold' }}>
+                                    <Button variant="outlined">
                                     {moment(lichchieu.ngayChieuGioChieu).format('hh:mm A')}
+                                    </Button>
                                   </NavLink>
                                 </Grid>
                               )
@@ -231,7 +234,7 @@ export default function Summery(props) {
 
       {/* Review */}
       <TabPanel className={classes.tabPanelColor} value={value} index={2}>
-        Bonjour
+        Film hay! Mình xem rồi nên mình biết...
       </TabPanel>
     </div>
   );
