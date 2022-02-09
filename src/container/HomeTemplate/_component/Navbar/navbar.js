@@ -6,24 +6,20 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
-import { useState, useEffect } from "react"
-
-
+import { useState, useEffect } from "react";
 
 const NavBar = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [colorChange, setColorchange] = useState(false);
-  const changeNavbarColor = () =>{
-     if(window.scrollY >= 80){
-       setColorchange(true);
-     }
-     else{
-       setColorchange(false);
-     }
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 80) {
+      setColorchange(true);
+    } else {
+      setColorchange(false);
+    }
   };
-  window.addEventListener('scroll', changeNavbarColor);
+  window.addEventListener("scroll", changeNavbarColor);
   return (
-    
     <header>
       <AppBar
         style={{
@@ -49,7 +45,7 @@ const NavBar = (props) => {
                 HomePage
               </Button>
             </NavLink>
-            <NavLink to="/list-movie" activeClassName="active">
+            <NavLink to="/movies" activeClassName="active">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
