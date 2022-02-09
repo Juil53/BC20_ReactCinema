@@ -25,7 +25,7 @@ const NavBarAdmin = (props) => {
             <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
           <Stack spacing={2} direction="row">
-            <NavLink to="/dashboard" exact activeClassName="active">
+            <NavLink to="/dashboard" activeClassName="active">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -43,21 +43,13 @@ const NavBarAdmin = (props) => {
                 Add User
               </Button>
             </NavLink>
-            <NavLink to="/auth" activeClassName="active">
+            <NavLink to="/" exact>
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
                 variant="text"
               >
-                Auth
-              </Button>
-            </NavLink>
-            <NavLink to="/signin">
-              <Button
-                variant="contained"
-                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-              >
-                Sign In
+                HomePage
               </Button>
             </NavLink>
           </Stack>

@@ -6,7 +6,7 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const NavBar = (props) => {
   const classes = useStyles();
@@ -19,6 +19,7 @@ const NavBar = (props) => {
     }
   };
   window.addEventListener("scroll", changeNavbarColor);
+  
   return (
     <header>
       <AppBar
@@ -36,7 +37,7 @@ const NavBar = (props) => {
             <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
           <Stack spacing={2} direction="row">
-            <NavLink to="/" exact activeClassName="active">
+            <NavLink to="/" exact>
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -45,7 +46,7 @@ const NavBar = (props) => {
                 HomePage
               </Button>
             </NavLink>
-            <NavLink to="/movies" activeClassName="active">
+            <NavLink to="/movies">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -54,7 +55,7 @@ const NavBar = (props) => {
                 List Movies
               </Button>
             </NavLink>
-            <NavLink to="/booking" activeClassName="active">
+            <NavLink to="/booking">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -63,7 +64,7 @@ const NavBar = (props) => {
                 Booking
               </Button>
             </NavLink>
-            <NavLink to="/signin">
+            <NavLink to="/auth">
               <Button
                 variant="contained"
                 style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}

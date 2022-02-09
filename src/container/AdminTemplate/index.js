@@ -8,10 +8,8 @@ export default function AdminTemplate(props) {
   if (localStorage.getItem("UserAdmin")) {
     return (
       <>
-        
           <NavBarAdmin />
           <Route exact={exact} path={path} component={component} />
-        
       </>
     );
   }
