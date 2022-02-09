@@ -13,19 +13,18 @@ import { CustomCard } from "@tsamantanis/react-glassmorphism";
 import "@tsamantanis/react-glassmorphism/dist/index.css";
 import Summery from "./Summery";
 import { actDetailMovies } from "./modules/action";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function DetailMovie(props) {
   const movie = useSelector((state) => state.DetailMoviesReducer.data);
-  const [value,setValue] = useState()
+  const history = useHistory();
+  const [value, setValue] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     //Lấy param Id từ URL
     const { id } = props.match.params;
     dispatch(actDetailMovies(id));
-    
   }, []);
-  
 
   const filmDangChieu = () => {
     if (movie && movie.dangChieu) {
@@ -79,10 +78,14 @@ export default function DetailMovie(props) {
 
                   <Grid container justifyContent="space-between">
                     <Grid item>
-                      <Typography variant="p">{new Date(movie?.ngayKhoiChieu).toLocaleDateString()}</Typography>
+                      <Typography variant="p">
+                        {new Date(movie?.ngayKhoiChieu).toLocaleDateString()}
+                      </Typography>
                     </Grid>
                     <Grid item>
-                      <Typography variant="p">{new Date(movie?.ngayKhoiChieu).toLocaleTimeString()}</Typography>
+                      <Typography variant="p">
+                        {new Date(movie?.ngayKhoiChieu).toLocaleTimeString()}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -115,20 +118,26 @@ export default function DetailMovie(props) {
                 </Grid>
               </Grid>
 
-              <Link to="#">
-                <Button
-                  variant="contained"
-                  style={{ marginTop: "20px", backgroundColor: "#ff2c1f" }}
-                >
-                  Book now!
-                </Button>
-              </Link>
+              <Button
+                variant="contained"
+                style={{ marginTop: "20px", backgroundColor: "#ff2c1f" }}
+                onClick={() =>
+                  history.push({
+                    pathname: "/booking",
+                    state: {
+                      id: movie?.maPhim,
+                    },
+                  })
+                }
+              >
+                Book now!
+              </Button>
             </Grid>
           </Grid>
         </Container>
 
         <Container>
-          <Summery movie={movie}/>
+          <Summery movie={movie} />
         </Container>
       </CustomCard>
     </div>

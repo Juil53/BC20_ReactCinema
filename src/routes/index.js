@@ -1,6 +1,6 @@
 import HomePage from "../container/HomeTemplate/Homepage";
-import ListMoviePage from "../container/HomeTemplate/ListMovie";
-import BookingPage from "../container/HomeTemplate/Booking";
+import ListMoviePage from "../container/ListMovieTemplate";
+import Booking from "../container/BookingTemplate/Booking";
 import { Route } from "react-router-dom";
 import DetailMovie from "../container/HomeTemplate/MoviesDetail";
 
@@ -13,20 +13,20 @@ const routesHome = [
   },
   //ListMovie
   {
-    exact: false,
-    path: "/list-movie",
+    exact: true,
+    path: "/movies",
     component: ListMoviePage,
   },
   //Booking,
   {
     exact: false,
     path: "/booking",
-    component: BookingPage,
+    component: Booking,
   },
   //Detail Movie
   {
     exact: false,
-    path: "/detail/:id",
+    path: "/movies/:id",
     component: DetailMovie,
   },
 ];
@@ -34,7 +34,7 @@ const routesHome = [
 // const routesAdmin = [];
 
 const renderRouteHome = () => {
-  return routesHome.map((route,index) => {
+  return routesHome.map((route, index) => {
     return (
       <Route
         key={index}
@@ -46,4 +46,4 @@ const renderRouteHome = () => {
   });
 };
 
-export {renderRouteHome};
+export { renderRouteHome };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import movieApi from "../../../api/movieApi";
+import movieApi from "../../api/movieApi";
 import {
   Box,
   Container,
@@ -10,8 +10,6 @@ import {
   Typography,
   Pagination,
   Stack,
-  CardActions,
-  Button,
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
@@ -34,8 +32,8 @@ export default function ListMoviePage() {
     const fetchMovies = async () => {
       try {
         const result = await movieApi.getAllMovies(params);
-        setMovies(result.content.items);
-        setTotalPage(result.content.totalPages);
+        setMovies(result.items);
+        setTotalPage(result.totalPages);
         history.push({
           search: queryString.stringify(params),
         });
@@ -69,7 +67,12 @@ export default function ListMoviePage() {
                   display: "flex",
                   flexDirection: "column",
                   borderColor: "#000",
+                  transition: ".3 linear",
+                  "&:hover": {
+                    borderColor: "#f12c36",
+                  },
                 }}
+                onClick={() => history.push(`/movies/${movie.maPhim}`)}
               >
                 <CardMedia
                   component="img"
@@ -87,22 +90,11 @@ export default function ListMoviePage() {
                     {movie.tenPhim}
                   </Typography>
                 </CardContent>
-                <CardActions
-                  sx={{
-                    marginTop: "auto",
-                    marginBottom: "12px",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button size="small" variant="outlined">
-                    Book Ticket
-                  </Button>
-                </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
-        <Stack spacing={2} mt={2}>
+        <Stack spacing={2} my={2}>
           <Pagination
             count={totalPage}
             variant="outlined"

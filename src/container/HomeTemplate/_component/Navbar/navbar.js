@@ -36,7 +36,7 @@ const NavBar = (props) => {
                 HomePage
               </Button>
             </NavLink>
-            <NavLink to="/list-movie" activeClassName="active">
+            <NavLink to="/movies" activeClassName="active">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
