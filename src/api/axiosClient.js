@@ -15,13 +15,13 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
   (response) => {
-    if (response && response.data) {
-      return response.data;
+    if (response && response.data.content) {
+      return response.data.content;
     }
     return response;
   },
-  (error) => {
-    throw error;
+  function (error) {
+    return Promise.reject(error);
   }
 );
 export default axiosClient;

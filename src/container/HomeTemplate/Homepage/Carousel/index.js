@@ -10,7 +10,7 @@ export default function Carousel() {
   //call CarouselApi after render
   useEffect(() => {
     dispatch(actCarousel());
-  }, []);
+  }, [dispatch]);
 
   const renderCarousel = () => {
     return arrCarousel?.map((item, index) => {
@@ -21,12 +21,11 @@ export default function Carousel() {
               backgroundImage: `url(${item.hinhAnh})`,
               backgroundPosition: "center center",
               backgroundSize: "cover",
-              position:'relative',
-              height:"100vh",
-              width:"100%",
+              position: "relative",
+              height: "100vh",
+              width: "100%",
             }}
-          >
-          </div>
+          ></div>
         </div>
       );
     });
@@ -40,7 +39,7 @@ export default function Carousel() {
     fade: true,
     cssEase: "linear",
     autoplay: true,
-    arrows:false,
+    arrows: false,
   };
 
   return <Slider {...settings}>{renderCarousel()}</Slider>;

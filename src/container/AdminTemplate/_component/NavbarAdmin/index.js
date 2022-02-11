@@ -25,7 +25,7 @@ const NavBarAdmin = (props) => {
             <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
           <Stack spacing={2} direction="row">
-            <NavLink to="/dashboard" exact activeClassName="active">
+            <NavLink to="/dashboard" activeClassName="active">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}

@@ -6,24 +6,24 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
-import { useState, useEffect } from "react"
-
-
+import { useState } from "react";
 
 const NavBar = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
   const [colorChange, setColorchange] = useState(false);
-  const changeNavbarColor = () =>{
-     if(window.scrollY >= 80){
-       setColorchange(true);
-     }
-     else{
-       setColorchange(false);
-     }
+  const changeNavbarColor = () => {
+    if (window.scrollY >= 80) {
+      setColorchange(true);
+    } else {
+      setColorchange(false);
+    }
   };
-  window.addEventListener('scroll', changeNavbarColor);
+  React.useEffect(() => {
+    window.addEventListener("scroll", changeNavbarColor);
+    return () => window.removeEventListener("scroll", changeNavbarColor);
+  }, []);
+
   return (
-    
     <header>
       <AppBar
         style={{
@@ -40,7 +40,7 @@ const NavBar = (props) => {
             <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
           <Stack spacing={2} direction="row">
-            <NavLink to="/" exact activeClassName="active">
+            <NavLink to="/" exact>
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -49,7 +49,7 @@ const NavBar = (props) => {
                 HomePage
               </Button>
             </NavLink>
-            <NavLink to="/list-movie" activeClassName="active">
+            <NavLink to="/movies">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -58,7 +58,7 @@ const NavBar = (props) => {
                 List Movies
               </Button>
             </NavLink>
-            <NavLink to="/booking" activeClassName="active">
+            <NavLink to="/booking">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -73,6 +73,14 @@ const NavBar = (props) => {
                 style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
               >
                 Log in
+              </Button>
+            </NavLink>
+            <NavLink to="/register">
+              <Button
+                variant="contained"
+                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+              >
+                Register
               </Button>
             </NavLink>
           </Stack>

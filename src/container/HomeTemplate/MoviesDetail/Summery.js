@@ -12,7 +12,6 @@ import moment from "moment";
 import { NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -67,13 +66,6 @@ function a11yProps(index) {
   };
 }
 
-function a11yPropsVertical(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "30px",
@@ -97,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Summery(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [valueTab, setValueTab] = useState(0);
   const { movie } = props;
   let arrCumrap = movie?.heThongRapChieu;
 
@@ -108,10 +99,6 @@ export default function Summery(props) {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-  };
-
-  const handleTabs = (event, newVal) => {
-    setValueTab(newVal);
   };
 
   const handleChange = (event, newValue) => {
@@ -126,89 +113,38 @@ export default function Summery(props) {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Schedule" {...a11yProps(0)} />
-          <Tab label="Summery" {...a11yProps(1)} />
-          <Tab label="Reviews" {...a11yProps(2)} />
+          <Tab label="Summery" {...a11yProps(0)} />
+          <Tab label="Reviews" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
 
-      {/* Schedule */}
-      <TabPanel value={value} index={0}>
-        <Box sx={{ flexGrow: 1, display: 'flex' }} >
-          <Grid container>
-            <Grid item xs={12} sm={4} md={3}>
-              <Tabs
-                orientation="vertical"
-                value={valueTab}
-                onChange={handleTabs}
-                aria-label="Vertical tabs example"
-              >
-                {movie?.heThongRapChieu.map((hethongrap, index) => {
-                  return (
-                    <Tab
-                      label={hethongrap.tenHeThongRap}
-                      {...a11yPropsVertical(index)}
-                      key={index}
-                      icon={<img width={50} height={50} src={hethongrap.logo} />}
-                    />
-                  );
-                })}
-              </Tabs>
-            </Grid>
-
-            <Grid item xs={12} sm={8} md={9}>
-              {arrCumrap?.map((cumrap, index) => {
-                return (
-                  <TabPanel key={index} value={valueTab} index={index}>
-                    {cumrap?.cumRapChieu.map((rap, index) => {
-                      return <div key={index}>
-                        <Box sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                        }}>
-                          <img
-                            style={{ width: '60px', height: '60px' }}
-                            src={rap.hinhAnh} />
-                          <div style={{ marginLeft: '10px' }}>
-                            <p style={{ fontSize: '20px', fontWeight: 'bold' }}>{rap.tenCumRap}</p>
-                            <p style={{ color: 'grey', fontSize: '14px' }}>{rap.diaChi}</p>
-                          </div>
-                        </Box>
-                        <Container>
-                          <Grid container spacing={2}>
-                            {rap.lichChieuPhim?.slice(0, 12).map((lichchieu, index) => {
-                              return (
-                                <Grid key={index} item xs={4}>
-                                  <NavLink to="/booking" style={{ color: 'white', fontWeight: 'bold' }}>
-                                    <Button variant="outlined">
-                                    {moment(lichchieu.ngayChieuGioChieu).format('hh:mm A')}
-                                    </Button>
-                                  </NavLink>
-                                </Grid>
-                              )
-                            })}
-                          </Grid>
-                        </Container>
-                      </div>
-                    })}
-                  </TabPanel>
-                )
-              })}
-            </Grid>
-          </Grid>
-
-        </Box>
-      </TabPanel>
-
-
       {/* Sumery */}
-      <TabPanel className={classes.tabPanelColor} value={value} index={1}>
+      <TabPanel className={classes.tabPanelColor} value={value} index={0}>
         <Typography variant="h4" gutterBottom>
           DESCRIPTION
         </Typography>
         <Typography paragraph gutterBottom>
           {movie && movie.moTa}
         </Typography>
+
+        <Typography variant="h4" gutterBottom>
+          CINEMA
+        </Typography>
+        <Grid container justifyContent="space-around">
+          {arrCumrap?.map((rap, index) => {
+            return (
+              <div key={index}>
+                <Grid item>
+                  <img
+                    style={{ width: "60px", height: "60px" }}
+                    src={rap.logo}
+                    alt={rap.logo}
+                  />
+                </Grid>
+              </div>
+            );
+          })}
+        </Grid>
 
         <Typography variant="h4" style={{ marginTop: "20px" }} gutterBottom>
           CAST
@@ -217,24 +153,24 @@ export default function Summery(props) {
         <div>
           <Slider {...settings}>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
+              <img className={classes.circle} src="https://picsum.photos/300" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
+              <img className={classes.circle} src="https://picsum.photos/280" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
+              <img className={classes.circle} src="https://picsum.photos/320" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
+              <img className={classes.circle} src="https://picsum.photos/310" alt="https://picsum.photos/300"/>
             </div>
           </Slider>
         </div>
       </TabPanel>
 
       {/* Review */}
-      <TabPanel className={classes.tabPanelColor} value={value} index={2}>
-        Film hay! Mình xem rồi nên mình biết...
+      <TabPanel className={classes.tabPanelColor} value={value} index={1}>
+        Film Hay! Tui xem rồi tui biết
       </TabPanel>
     </div>
   );

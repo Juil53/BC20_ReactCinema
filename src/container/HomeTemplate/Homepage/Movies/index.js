@@ -53,10 +53,15 @@ export default function Movies() {
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.cardContent}>
-                  <NavLink to={`/detail/${item.maPhim}`}>
-                  <Button variant="outlined" size="small" color="primary" style={{marginRight:'10px'}}>
-                    Detail Movie
-                  </Button>
+                  <NavLink to={`/movies/${item.maPhim}`}>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                      style={{ marginRight: "10px" }}
+                    >
+                      Detail Movie
+                    </Button>
                   </NavLink>
                   <Button variant="outlined" size="small" color="primary">
                     Book Now
@@ -66,7 +71,7 @@ export default function Movies() {
             </Grid>
           ))}
         </Grid>
-        
+
         <Container style={{ textAlign: "right" }}>
           <Button
             size="small"
