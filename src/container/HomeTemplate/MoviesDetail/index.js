@@ -22,6 +22,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 export default function DetailMovie(props) {
   const classes = useStyles();
   const movie = useSelector((state) => state.DetailMoviesReducer.data);
+  const user = useSelector((state) => state.AuthReducer.data);
+
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -35,6 +37,20 @@ export default function DetailMovie(props) {
       return "Opening day";
     }
     return "Coming soon";
+  };
+
+  const handleBooking = () => {
+    if (user) {
+      history.push({
+        pathname: "/booking",
+        state: {
+          id: movie.maPhim,
+        },
+      });
+    } else {
+      alert("You're not login.Please login & try again!");
+      history.push("/auth");
+    }
   };
 
   return (
@@ -136,14 +152,7 @@ export default function DetailMovie(props) {
               <Button
                 variant="contained"
                 style={{ marginTop: "20px", backgroundColor: "#ff2c1f" }}
-                onClick={() =>
-                  history.push({
-                    pathname: "/booking",
-                    state: {
-                      id: movie.maPhim,
-                    },
-                  })
-                }
+                onClick={handleBooking}
               >
                 Book now!
               </Button>
