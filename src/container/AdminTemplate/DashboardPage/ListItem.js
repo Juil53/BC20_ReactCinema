@@ -5,6 +5,9 @@ import ListItemText from "@mui/material/ListItemText";
 import PeopleIcon from "@mui/icons-material/People";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
 const listItems = [
   {
     title: "Users",
@@ -20,6 +23,7 @@ const listItems = [
   },
 ];
 const ListItems = ({ active, onActive }) => {
+  const history = useHistory();
   return (
     <React.Fragment>
       {listItems.map((item, i) => (
@@ -36,6 +40,16 @@ const ListItems = ({ active, onActive }) => {
           <ListItemText primary={item.title} />
         </ListItemButton>
       ))}
+      <Button
+        variant="contained"
+        style={{ color: "white", backgroundColor: "#ff2c1f" }}
+        onClick={() => {
+          history.push("/")
+          localStorage.removeItem("UserAdmin");
+        }}
+      >
+        Logout
+      </Button>
     </React.Fragment>
   );
 };

@@ -22,6 +22,7 @@ import Users from "./Users";
 import Movies from "./Movies";
 import Ticket from "./Ticket";
 
+
 function Copyright(props) {
   return (
     <Typography
@@ -89,11 +90,13 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const [active, setActive] = React.useState(0);
+  
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -167,7 +170,7 @@ function DashboardContent() {
             {active === 0 && <Users />}
             {active === 1 && <Movies />}
             {active === 2 && <Ticket />}
-
+            {/* {active === 3 && } */}
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>

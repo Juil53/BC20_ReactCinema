@@ -7,8 +7,8 @@ import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
 import { useState } from "react";
-
-const NavBar = (props) => {
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+const NavBar = (props, history) => {
   const classes = useStyles();
   const [colorChange, setColorchange] = useState(false);
   const changeNavbarColor = () => {
@@ -22,6 +22,47 @@ const NavBar = (props) => {
     window.addEventListener("scroll", changeNavbarColor);
     return () => window.removeEventListener("scroll", changeNavbarColor);
   }, []);
+
+  const handleLogin = () => {
+    if (localStorage.getItem("UserClient") === null) {
+      return (
+        <>
+          <NavLink to="/auth">
+            <Button
+              variant="contained"
+              style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+            >
+              Log in
+            </Button>
+          </NavLink>
+          <NavLink to="/register">
+            <Button
+              variant="contained"
+              style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+            >
+              Register
+            </Button>
+          </NavLink>
+        </>
+      );
+    }
+    return (
+      <>
+        <AccountCircleIcon style={{ color: "white" }} fontSize="large" />
+        <NavLink to="/">
+          <Button
+            onClick={() => {
+              localStorage.removeItem("UserClient");
+            }}
+            variant="outlined"
+            style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+          >
+            Logout
+          </Button>
+        </NavLink>
+      </>
+    );
+  };
 
   return (
     <header>
@@ -67,22 +108,7 @@ const NavBar = (props) => {
                 Booking
               </Button>
             </NavLink>
-            <NavLink to="/auth">
-              <Button
-                variant="contained"
-                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-              >
-                Log in
-              </Button>
-            </NavLink>
-            <NavLink to="/register">
-              <Button
-                variant="contained"
-                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-              >
-                Register
-              </Button>
-            </NavLink>
+            {handleLogin()}
           </Stack>
         </Toolbar>
       </AppBar>
