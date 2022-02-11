@@ -72,7 +72,15 @@ const NavBar = (props) => {
                 variant="contained"
                 style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
               >
-                Sign In
+                Log in
+              </Button>
+            </NavLink>
+            <NavLink to="/register">
+              <Button
+                variant="contained"
+                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+              >
+                Register
               </Button>
             </NavLink>
           </Stack>
