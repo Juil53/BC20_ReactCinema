@@ -34,7 +34,7 @@ const NavBarAdmin = (props) => {
                 DashBoard
               </Button>
             </NavLink>
-            <NavLink to="/add-user" activeClassName="active">
+            {/* <NavLink to="/add-user" activeClassName="active">
               <Button
                 sx={{ color: "white" }}
                 className={classes.navbtn}
@@ -42,16 +42,11 @@ const NavBarAdmin = (props) => {
               >
                 Add User
               </Button>
-            </NavLink>
-            <NavLink to="/" exact>
-              <Button
-                sx={{ color: "white" }}
-                className={classes.navbtn}
-                variant="text"
-              >
-                HomePage
-              </Button>
-            </NavLink>
+            </NavLink> */}
+
+            <Button sx={{ color: "white" }} variant="contained">
+              Log Out
+            </Button>
           </Stack>
         </Toolbar>
       </AppBar>

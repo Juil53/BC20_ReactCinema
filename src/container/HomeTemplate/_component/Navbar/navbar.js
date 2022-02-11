@@ -6,9 +6,11 @@ import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const NavBar = (props) => {
+  const data = useSelector((state) => state.AuthReducer.data);
   const classes = useStyles();
   const [colorChange, setColorchange] = useState(false);
   const changeNavbarColor = () => {
@@ -18,8 +20,47 @@ const NavBar = (props) => {
       setColorchange(false);
     }
   };
-  window.addEventListener("scroll", changeNavbarColor);
-  
+
+  useEffect(() => {
+    window.addEventListener("scroll", changeNavbarColor);
+    return window.removeEventListener("scroll", changeNavbarColor);
+  }, []);
+
+  const renderLogin = () => {
+    if ((data === null)) {
+      return (
+        <>
+          <NavLink to="/auth">
+            <Button
+              variant="contained"
+              style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+            >
+              Sign In
+            </Button>
+          </NavLink>
+          <NavLink to="/register">
+            <Button
+              variant="contained"
+              style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+            >
+              Sign Up
+            </Button>
+          </NavLink>
+        </>
+      );
+    }
+    return (
+      <NavLink to="/profile">
+        <Button
+          variant="text"
+          style={{ color: `#ffffff` }}
+        >
+          Hi! {data.taiKhoan}
+        </Button>
+      </NavLink>
+    );
+  };
+
   return (
     <header>
       <AppBar
@@ -64,14 +105,7 @@ const NavBar = (props) => {
                 Booking
               </Button>
             </NavLink>
-            <NavLink to="/auth">
-              <Button
-                variant="contained"
-                style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-              >
-                Sign In
-              </Button>
-            </NavLink>
+            {renderLogin()}
           </Stack>
         </Toolbar>
       </AppBar>

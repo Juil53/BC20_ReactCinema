@@ -8,13 +8,11 @@ export const actAuthMovie = (user, history) => {
       .post("QuanLyNguoiDung/DangNhap", user)
       .then((result) => {
         if (result.data.content.maLoaiNguoiDung === "KhachHang") {
-          return Promise.reject({
-            response: {
-              data: {
-                content: "Bạn không có quyền truy cập!",
-              },
-            },
-          });
+          return (
+            dispatch(actAuthSuccess(result.data.content)),
+            localStorage.setItem("UserClient",JSON.stringify(result.data.content)),
+            history.replace("/")
+          )
         }
         dispatch(actAuthSuccess(result.data.content));
         localStorage.setItem("UserAdmin", JSON.stringify(result.data.content));

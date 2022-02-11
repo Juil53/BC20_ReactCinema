@@ -15,7 +15,8 @@ import {useDispatch} from "react-redux";
 
 const theme = createTheme();
 
-export default function AddUser() {
+export default function AddUser(props) {
+  const {history} = props
   const dispatch = useDispatch();
   const [state, setState] = useState({
     taiKhoan: "",
@@ -37,6 +38,7 @@ export default function AddUser() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(actAddUser(state))
+    history.replace("/")
   }
 
   return (
@@ -73,7 +75,7 @@ export default function AddUser() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Add User
+              Register
             </Typography>
             <Box
               component="form"

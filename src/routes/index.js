@@ -4,7 +4,7 @@ import Booking from "../container/BookingTemplate/Booking";
 import DetailMovie from "../container/HomeTemplate/MoviesDetail";
 import HomeTemplate from "../container/HomeTemplate";
 import DashboardPage from "../container/AdminTemplate/DashboardPage";
-import AddUserPage from "../container/AdminTemplate/AddUserPage";
+import AddUser from "../container/AdminTemplate/AddUserPage";
 import AdminTemplate from "../container/AdminTemplate";
 
 const routesHome = [
@@ -43,7 +43,7 @@ const routesAdmin = [
   {
     exact: false,
     path: "/add-user",
-    component: AddUserPage,
+    component: AddUser,
   },
 ];
 
