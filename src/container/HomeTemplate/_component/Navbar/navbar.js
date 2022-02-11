@@ -18,8 +18,11 @@ const NavBar = (props) => {
       setColorchange(false);
     }
   };
-  window.addEventListener("scroll", changeNavbarColor);
-  
+  React.useEffect(() => {
+    window.addEventListener("scroll", changeNavbarColor);
+    return () => window.removeEventListener("scroll", changeNavbarColor);
+  }, []);
+
   return (
     <header>
       <AppBar
