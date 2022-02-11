@@ -152,6 +152,10 @@ const Booking = () => {
       setOpenToast(true);
     } else if (activeStep === 2) {
       nextStep();
+      movieApi.bookingTicket({
+        maLichChieu: showTimeId,
+        danhSachVe: selectedSeats,
+      });
     }
   };
 
