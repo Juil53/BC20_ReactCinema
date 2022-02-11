@@ -25,18 +25,17 @@ const payments = [
     imgUrl: "./img/paypal.png",
   },
 ];
-const Payment = () => {
+const Payment = ({ errors, register }) => {
   const [activeMethod, setActiveMethod] = useState(0);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schemaPayment),
-  });
+
   return (
-    <Box>
+    <Box
+      sx={{
+        "& .MuiInputBase-input": {
+          color: "#fff",
+        },
+      }}
+    >
       <Typography gutterBottom>Payment method</Typography>
       <Stack direction={"row"} spacing={2} mb={2}>
         {payments.map((item, i) => (
@@ -65,10 +64,9 @@ const Payment = () => {
             label="First Name"
             variant="outlined"
             {...register("firstName")}
+            error={errors.firstName}
+            helperText={errors.firstName?.message}
           />
-          {errors.firstName && (
-            <Typography variant="p">{errors.firstName.message}</Typography>
-          )}
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -76,10 +74,9 @@ const Payment = () => {
             label="Last Name"
             variant="outlined"
             {...register("lastName")}
+            error={errors.lastName}
+            helperText={errors.lastName?.message}
           />
-          {errors.lastName && (
-            <Typography variant="p">{errors.lastName.message}</Typography>
-          )}
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -87,6 +84,8 @@ const Payment = () => {
             label="Card Number"
             variant="outlined"
             {...register("cardId")}
+            error={errors.cardId}
+            helperText={errors.cardId?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -99,9 +98,6 @@ const Payment = () => {
               ),
             }}
           />
-          {errors.cardId && (
-            <Typography variant="p">{errors.cardId.message}</Typography>
-          )}
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -109,10 +105,9 @@ const Payment = () => {
             label="Expiration Date"
             variant="outlined"
             {...register("expirationTime")}
+            error={errors.expirationTime}
+            helperText={errors.expirationTime?.message}
           />
-          {errors.expirationTime && (
-            <Typography variant="p">{errors.expirationTime.message}</Typography>
-          )}
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -120,10 +115,9 @@ const Payment = () => {
             label="CVV"
             variant="outlined"
             {...register("code")}
+            error={errors.code}
+            helperText={errors.code?.message}
           />
-          {errors.code && (
-            <Typography variant="p">{errors.lastName.code}</Typography>
-          )}
         </Grid>
       </Grid>
     </Box>
