@@ -40,7 +40,7 @@ export default function DetailMovie(props) {
   };
 
   const handleBooking = () => {
-    if (user) {
+    if (localStorage.getItem("UserClient") || user !== null) {
       history.push({
         pathname: "/booking",
         state: {
