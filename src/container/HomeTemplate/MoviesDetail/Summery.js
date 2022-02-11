@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import { Divider, Grid, Container } from "@mui/material";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -137,6 +138,7 @@ export default function Summery(props) {
                   <img
                     style={{ width: "60px", height: "60px" }}
                     src={rap.logo}
+                    alt={rap.logo}
                   />
                 </Grid>
               </div>
@@ -151,16 +153,16 @@ export default function Summery(props) {
         <div>
           <Slider {...settings}>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/300" />
+              <img className={classes.circle} src="https://picsum.photos/300" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/280" />
+              <img className={classes.circle} src="https://picsum.photos/280" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/320" />
+              <img className={classes.circle} src="https://picsum.photos/320" alt="https://picsum.photos/300"/>
             </div>
             <div>
-              <img className={classes.circle} src="https://picsum.photos/310" />
+              <img className={classes.circle} src="https://picsum.photos/310" alt="https://picsum.photos/300"/>
             </div>
           </Slider>
         </div>
