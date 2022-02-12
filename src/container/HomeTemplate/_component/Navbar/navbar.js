@@ -1,7 +1,7 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../../styles";
@@ -15,6 +15,11 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useHistory } from "react-router-dom";
+import Popper from "@mui/material/Popper";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import MenuList from "@mui/material/MenuList";
 
 const NavBar = (props) => {
   const history = useHistory();
@@ -50,69 +55,123 @@ const NavBar = (props) => {
     setAnchorElUser(null);
   };
 
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    } else if (event.key === "Escape") {
+      setOpen(false);
+    }
+  }
+
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
+
   const handleLogin = () => {
     if (localStorage.getItem("UserClient") === null) {
       return (
-        <>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountBoxIcon style={{ color: " white" }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <NavLink to="/auth">
-                  <Button
-                    variant="contained"
-                    style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-                  >
-                    Log in
-                  </Button>
-                </NavLink>
-              </MenuItem>
-              <MenuItem>
-                <NavLink to="/register">
-                  <Button
-                    variant="contained"
-                    style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-                  >
-                    Register
-                  </Button>
-                </NavLink>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </>
+        <div>
+          <Button
+            ref={anchorRef}
+            id="composition-button"
+            aria-controls={open ? "composition-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+          >
+            <AccountBoxIcon style={{ color: "white" }} />
+          </Button>
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            placement="bottom-start"
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom-start" ? "left top" : "left bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      autoFocusItem={open}
+                      id="composition-menu"
+                      aria-labelledby="composition-button"
+                      onKeyDown={handleListKeyDown}
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <NavLink to="/auth">
+                          <Button
+                            variant="contained"
+                            style={{
+                              color: `#ffffff`,
+                              backgroundColor: `#ff2c1f`,
+                            }}
+                          >
+                            Log in
+                          </Button>
+                        </NavLink>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <NavLink to="/register">
+                          <Button
+                            variant="contained"
+                            style={{
+                              color: `#ffffff`,
+                              backgroundColor: `#ff2c1f`,
+                            }}
+                          >
+                            Register
+                          </Button>
+                        </NavLink>
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </div>
       );
     }
-    return (  
-        <Button
-          onClick={() => {
-            localStorage.removeItem("UserClient")
-            history.push("/")
-          }}
-          variant="text"
-          style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
-        >
-          Logout
-        </Button>
-    )
+    return (
+      <Button
+        onClick={() => {
+          localStorage.removeItem("UserClient");
+          history.push("/");
+        }}
+        variant="text"
+        style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+      >
+        Logout
+      </Button>
+    );
   };
 
   return (
@@ -129,12 +188,14 @@ const NavBar = (props) => {
           disableGutters
           className={colorChange ? "navbar colorChange" : "navbar"}
         >
+          {/* Logo */}
           <Typography
             sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
           >
             <img src="/img/footerlogo.jpg" alt="logo" />
           </Typography>
 
+          {/* Menu Icon */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -167,9 +228,9 @@ const NavBar = (props) => {
               <MenuItem onClick={handleCloseNavMenu}>
                 <NavLink to="/" exact>
                   <Button
-                    sx={{ color: "white" }}
-                    className={classes.navbtn}
-                    variant="text"
+                    sx={{ color: "#ff2c1f" }}
+                    style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+                    variant="contained"
                   >
                     HomePage
                   </Button>
@@ -178,9 +239,9 @@ const NavBar = (props) => {
               <MenuItem>
                 <NavLink to="/movies">
                   <Button
-                    sx={{ color: "white" }}
-                    className={classes.navbtn}
-                    variant="text"
+                    sx={{ color: "#ff2c1f" }}
+                    style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+                    variant="contained"
                   >
                     List Movies
                   </Button>
@@ -189,9 +250,9 @@ const NavBar = (props) => {
               <MenuItem>
                 <NavLink to="/booking">
                   <Button
-                    sx={{ color: "white" }}
-                    className={classes.navbtn}
-                    variant="text"
+                    sx={{ color: "#ff2c1f" }}
+                    style={{ color: `#ffffff`, backgroundColor: `#ff2c1f` }}
+                    variant="contained"
                   >
                     Booking
                   </Button>
@@ -209,36 +270,9 @@ const NavBar = (props) => {
             >
               <img src="/img/footerlogo.jpg" alt="logo" />
             </Typography>
-            {/* <NavLink to="/" exact>
-                <Button
-                  sx={{ color: "white" }}
-                  className={classes.navbtn}
-                  variant="text"
-                >
-                  HomePage
-                </Button>
-              </NavLink>
-              <NavLink to="/movies">
-                <Button
-                  sx={{ color: "white" }}
-                  className={classes.navbtn}
-                  variant="text"
-                >
-                  List Movies
-                </Button>
-              </NavLink>
-              <NavLink to="/booking">
-                <Button
-                  sx={{ color: "white" }}
-                  className={classes.navbtn}
-                  variant="text"
-                >
-                  Booking
-                </Button>
-              </NavLink> */}
-            {/* {handleLogin()} */}
           </Box>
 
+          {/* Text Nav */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <NavLink to="/" exact>
               <Button
@@ -269,6 +303,7 @@ const NavBar = (props) => {
             </NavLink>
           </Box>
 
+          {/* Login Register */}
           {handleLogin()}
         </Toolbar>
       </AppBar>
