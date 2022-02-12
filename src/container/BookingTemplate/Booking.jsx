@@ -20,10 +20,13 @@ import {
 import { makeStyles } from "@mui/styles";
 import Ticket from "./Ticket";
 import { formatLongDate, formatShortDate } from "../../Utils/formatDate";
-import { useForm } from "./useForm";
+import { useFormSelect } from "./useForm";
 import Seat from "./Seat";
 import Payment from "./Payment";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaPayment } from "../../Utils/validate";
+import { useForm } from "react-hook-form";
+import Success from "./Success";
 const steps = ["Chose your tickets", "Chose your seats", "Payment"];
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -71,14 +74,21 @@ const Booking = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [showTimes, setShowTimes] = useState();
-  const { selectedValues, handleSelectChange } = useForm();
+  const { selectedValues, handleSelectChange } = useFormSelect();
   const [errors, setErrors] = useState({});
   const [showTimeId, setShowTimeId] = useState(null);
   const [selectedSeats, setAllSelectedSeats] = useState([]);
   const [openToast, setOpenToast] = useState(false);
-
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors: errorsPayment },
+  } = useForm({
+    resolver: yupResolver(schemaPayment),
+  });
   const validate = (selectedItem) => {
-    const temp = {};
+    const temp = { ...errors };
     for (let [key, value] of Object.entries(selectedItem)) {
       temp[key] = value ? "" : "This field is required";
     }
@@ -111,6 +121,7 @@ const Booking = () => {
     const newCompleted = Object.assign({}, completed);
     delete newCompleted[activeStep - 1];
     setCompleted(newCompleted);
+    setAllSelectedSeats([]);
   };
 
   const handleStep = (step) => () => {
@@ -141,6 +152,10 @@ const Booking = () => {
       setOpenToast(true);
     } else if (activeStep === 2) {
       nextStep();
+      movieApi.bookingTicket({
+        maLichChieu: showTimeId,
+        danhSachVe: selectedSeats,
+      });
     }
   };
 
@@ -150,7 +165,6 @@ const Booking = () => {
   };
 
   useEffect(() => {
-    console.log(location);
     if (location.state?.id) {
       const fetchShowTimes = async () => {
         const result = await movieApi.getShowTimes(location.state.id);
@@ -158,12 +172,13 @@ const Booking = () => {
       };
       fetchShowTimes();
     } else {
-      // history.push("/movies");
+      alert("Please select a movie to see showtimes.");
+      history.push("/movies");
     }
   }, [history, location]);
 
   return (
-    <Box pt={10} className={classes.form}>
+    <Box pt={10} className={classes.form} component="form" autoComplete="off">
       <Container maxWidth="lg">
         <Box className={classes.step}>
           <Stepper alternativeLabel activeStep={activeStep}>
@@ -213,15 +228,7 @@ const Booking = () => {
               </Grid>
             )}
             {allStepsCompleted() ? (
-              <>
-                <Typography sx={{ mt: 2, mb: 1 }}>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                  <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleReset}>Reset</Button>
-                </Box>
-              </>
+              <Success />
             ) : (
               <Grid item xs={12} sm={8} md={9}>
                 {activeStep === 0 && (
@@ -240,7 +247,9 @@ const Booking = () => {
                     onSelect={setAllSelectedSeats}
                   />
                 )}
-                {activeStep === 2 && <Payment />}
+                {activeStep === 2 && (
+                  <Payment errors={errorsPayment} register={register} />
+                )}
                 <Box
                   sx={{
                     display: "flex",
@@ -249,15 +258,21 @@ const Booking = () => {
                   }}
                 >
                   <Button
-                    color="inherit"
                     disabled={activeStep === 0}
                     onClick={handleBack}
-                    sx={{ mr: 1 }}
+                    sx={{ mr: 1, color: "#fff" }}
+                    variant="outlined"
                   >
                     Back
                   </Button>
                   <Box sx={{ flex: "1 1 auto" }} />
-                  <Button onClick={handleNext} sx={{ mr: 1 }}>
+                  <Button
+                    variant="contained"
+                    onClick={
+                      activeStep === 2 ? handleSubmit(handleNext) : handleNext
+                    }
+                    sx={{ mr: 1 }}
+                  >
                     {activeStep === totalSteps() - 1 ? "Finish" : "Next"}
                   </Button>
                 </Box>
@@ -270,6 +285,8 @@ const Booking = () => {
         open={openToast}
         autoHideDuration={3000}
         onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        variant="filled"
       >
         <Alert
           onClose={handleCloseToast}

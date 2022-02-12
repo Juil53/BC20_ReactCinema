@@ -7,7 +7,7 @@ const initialFValues = {
   theaternumber: "",
 };
 
-export function useForm() {
+export function useFormSelect() {
   const [selectedValues, setSelectedValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
 

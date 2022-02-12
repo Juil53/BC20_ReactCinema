@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
 import "./animate.css";
 import { actAuthMovie } from "./modules/action";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function AuthPage(props) {
   const loading = useSelector((state) => state.AuthReducer.loading);

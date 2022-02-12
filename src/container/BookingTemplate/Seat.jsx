@@ -32,22 +32,32 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     display: "flex",
     flexWrap: "wrap",
+    "& .MuiTypography-root": {
+      fontSize: "12px",
+      margin: "1px",
+      width: 25,
+      height: 25,
+      borderRadius: "4px",
+      cursor: "pointer",
+      lineHeight: "25px",
+      textAlign: "center",
+      color: "#fff",
+      border: "1px solid #fff",
+    },
+  },
+  seatSold: {
+    backgroundColor: "red",
+    pointerEvents: "none",
   },
   seat: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     borderRadius: "4px",
-    margin: "1px",
-    cursor: "pointer",
-    fontSize: "12px",
-    lineHeight: "25px",
-    textAlign: "center",
-  },
-  seatVip: {
-    border: "1px solid red",
-  },
-  seatNormal: {
+    display: "inline-block",
     border: "1px solid #fff",
+  },
+  seatSelected: {
+    backgroundColor: "#33cc66",
   },
   table: {
     maxWidth: "300px",
@@ -113,12 +123,44 @@ const Seat = ({ id, onSelect, selectedSeats }) => {
         <Box maxWidth={"300px"} margin={"0 auto"}>
           <div className={classes.screen}></div>
         </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            color: "#fff",
+            mt: 2,
+          }}
+        >
+          <Box mr={2}>
+            <Typography
+              className={clsx(classes.seatSold, classes.seat)}
+              mr={1}
+            />
+            <Typography variant="subtile2">Sold</Typography>
+          </Box>
+          <Box mr={2}>
+            <Typography
+              className={clsx(classes.seatSelected, classes.seat)}
+              mr={1}
+            />
+            <Typography variant="subtile2">Selected</Typography>
+          </Box>
+          <Box>
+            <Typography className={classes.seat} mr={1} />
+            <Typography variant="subtile2">Available</Typography>
+          </Box>
+        </Box>
         <Box pt={4} className={classes.box}>
           {vipSeats?.map((seat) => (
             <Typography
               component="p"
               key={seat.maGhe}
-              className={clsx(classes.seat, classes.seatVip)}
+              className={clsx(
+                classes.seat,
+                seat.daDat && classes.seatSold,
+                selectedSeats.some((item) => item?.maGhe === seat.maGhe) &&
+                  classes.seatSelected
+              )}
               onClick={() => toggleSelectSeat(seat)}
             >
               {seat.tenGhe}
@@ -130,7 +172,12 @@ const Seat = ({ id, onSelect, selectedSeats }) => {
             <Typography
               component="p"
               key={seat.maGhe}
-              className={clsx(classes.seat, classes.seatNormal)}
+              className={clsx(
+                classes.seat,
+                seat.daDat && classes.seatSold,
+                selectedSeats.some((item) => item?.maGhe === seat.maGhe) &&
+                  classes.seatSelected
+              )}
               onClick={() => toggleSelectSeat(seat)}
             >
               {seat.tenGhe}
@@ -159,8 +206,8 @@ const Seat = ({ id, onSelect, selectedSeats }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {selectedSeats.map((seat) => (
-                  <TableRow>
+                {selectedSeats.map((seat,index) => (
+                  <TableRow key={index}>
                     <TableCell>{seat?.tenGhe}</TableCell>
                     <TableCell>{formatPrice(seat?.giaVe)}</TableCell>
                     <TableCell>

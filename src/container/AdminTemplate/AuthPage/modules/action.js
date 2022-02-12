@@ -10,9 +10,9 @@ export const actAuthMovie = (user, history) => {
         if (result.data.content.maLoaiNguoiDung === "KhachHang") {
           return (
             dispatch(actAuthSuccess(result.data.content)),
-            localStorage.setItem("UserClient",JSON.stringify(result.data.content)),
+            localStorage.setItem("UserClient", JSON.stringify(result.data.content)),
             history.replace("/")
-          )
+          );
         }
         dispatch(actAuthSuccess(result.data.content));
         localStorage.setItem("UserAdmin", JSON.stringify(result.data.content));
