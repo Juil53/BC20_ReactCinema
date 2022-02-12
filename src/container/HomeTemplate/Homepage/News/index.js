@@ -17,6 +17,7 @@ export default function NewSlider() {
 
   const classes = useStyles();
   const settings = {
+    arrows: false,
     dots: true,
     infinite: true,
     autoplay: true,
