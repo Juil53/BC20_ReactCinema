@@ -206,8 +206,8 @@ const Seat = ({ id, onSelect, selectedSeats }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {selectedSeats.map((seat) => (
-                  <TableRow key={seat.maGhe}>
+                {selectedSeats.map((seat,index) => (
+                  <TableRow key={index}>
                     <TableCell>{seat?.tenGhe}</TableCell>
                     <TableCell>{formatPrice(seat?.giaVe)}</TableCell>
                     <TableCell>
