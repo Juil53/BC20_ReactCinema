@@ -70,6 +70,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "1rem",
     background: "white",
   },
+  bookingpage:{
+    backgroundColor: "#001232",
+    width:"100%",
+    height:"100vh",
+  },
 }));
 
 export { useStyles };

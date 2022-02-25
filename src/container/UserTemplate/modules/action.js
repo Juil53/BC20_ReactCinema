@@ -1,15 +1,13 @@
 import * as ActionType from "./constant";
 import api from "../../../Utils/apiUtils";
 
-export const actAddUser = (user,props) => {
-  const {history} = props;
+export const actAddUser = (user) => {
   return (dispatch) => {
     dispatch(actAddUserRequest());
     api
       .post("QuanLyNguoiDung/ThemNguoiDung", user)
       .then((result) => {
         dispatch(actAddUserSuccess(result.data.content));
-        history.replace("/");
       })
       .catch((error) => {
         dispatch(actAddUserFailed(error));

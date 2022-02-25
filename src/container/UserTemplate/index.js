@@ -15,7 +15,8 @@ import {useDispatch} from "react-redux";
 
 const theme = createTheme();
 
-export default function Register() {
+export default function Register(props) {
+  const {history} = props
   const dispatch = useDispatch();
   const [state, setState] = useState({
     taiKhoan: "",
@@ -37,6 +38,7 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(actAddUser(state))
+    history.replace("/");
   }
 
   return (

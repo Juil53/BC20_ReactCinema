@@ -23,7 +23,6 @@ const addUserReducer = (state = initialState, action) => {
       state.data = null;
       state.error = action.payload;
       return { ...state };
-
     default:
       return { ...state };
   }

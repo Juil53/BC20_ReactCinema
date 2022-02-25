@@ -45,7 +45,7 @@ export default function ListMoviePage() {
   }, [page, totalPage, history]);
 
   return (
-    <Box pt="96px" pb={4} sx={{ backgroundColor: "#001232" }}>
+    <Box pt="96px" pb={4} sx={{ backgroundColor: "#001232", height: "100vh" }}>
       <Container>
         <Grid container rowSpacing={4} columnSpacing={2}>
           {movies?.map((movie) => (
@@ -72,7 +72,7 @@ export default function ListMoviePage() {
               >
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="350"
                   image={movie.hinhAnh}
                   alt={movie.tenPhim}
                 />

@@ -170,8 +170,7 @@ function DashboardContent() {
             {active === 0 && <Users />}
             {active === 1 && <Movies />}
             {active === 2 && <Ticket />}
-            {/* {active === 3 && } */}
-            {/* <Copyright sx={{ pt: 4 }} /> */}
+            
           </Container>
         </Box>
       </Box>

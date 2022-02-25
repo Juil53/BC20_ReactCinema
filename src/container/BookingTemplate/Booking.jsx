@@ -178,7 +178,7 @@ const Booking = () => {
   }, [history, location]);
 
   return (
-    <Box pt={10} className={classes.form} component="form" autoComplete="off">
+    <Box pt={10} className={classes.form} component="form" autoComplete="off" sx={{height:"100vh"}}>
       <Container maxWidth="lg">
         <Box className={classes.step}>
           <Stepper alternativeLabel activeStep={activeStep}>
