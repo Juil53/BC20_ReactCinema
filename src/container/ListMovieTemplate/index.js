@@ -45,7 +45,7 @@ export default function ListMoviePage() {
   }, [page, totalPage, history]);
 
   return (
-    <Box pt="96px" pb={4} sx={{ backgroundColor: "#001232", height: "100vh" }}>
+    <Box pt="96px" pb={4} sx={{ backgroundColor: "#001232", height: "100%" }}>
       <Container>
         <Grid container rowSpacing={4} columnSpacing={2}>
           {movies?.map((movie) => (
