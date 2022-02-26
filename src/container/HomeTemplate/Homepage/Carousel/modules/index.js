@@ -9,7 +9,7 @@ const CarouselReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CAROUSEL_REQUEST:
       state.loading = true;
-      state.data = null;
+      // state.data = null;
       state.error = null;
       return { ...state };
     case ActionType.CAROUSEL_SUCCESS:
